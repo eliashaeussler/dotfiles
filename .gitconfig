@@ -54,3 +54,5 @@
 	defaultRemote = origin
 [fetch]
 	prune = true
+[include]
+	path = ~/.gitconfig_extra
