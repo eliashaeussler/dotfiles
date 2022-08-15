@@ -42,6 +42,11 @@ cd .config
 ln -s /path/to/repo/clone/.config/starship.toml
 ```
 
+#### Required programs
+
+* [DDEV](https://github.com/drud/ddev)
+* Git
+
 ### Vim configuration
 
 In your home directory, run the following:
