@@ -1,0 +1,33 @@
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+[character]
+error_symbol = "🚨 "
+
+[git_commit]
+only_detached = false
+tag_disabled = false
+
+[status]
+disabled = false
+
+[time]
+disabled = false
+time_format = "%H:%M"
+
+[custom.ddev_version]
+command = "ddev version -j | jq -r '.raw.\"DDEV version\"'"
+description = "The current DDEV version"
+detect_folders = [".ddev"]
+symbol = "🤖 "
+style = "bold blue"
+format = "via [$symbol($output)]($style) "
+
+[custom.git_last_tag]
+command = "git tag -l --sort=-v:refname | head -1"
+description = "The last tagged version of the repo in the current directory"
+when = """ test "$(git tag -l --sort=-v:refname 2>/dev/null)" """
+symbol = "🔖 "
+style = "bold cyan"
+format = "last [$symbol($output)]($style) "
+
