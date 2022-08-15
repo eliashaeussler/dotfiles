@@ -126,3 +126,8 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(starship init zsh)"
 eval "$(mcfly init zsh)"
 
+# Include additional ZSH configuration
+if [ -f "$HOME/.zshrc_extra" ]; then
+  source "$HOME/.zshrc_extra"
+fi
+
