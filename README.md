@@ -1,2 +1,8 @@
-# dotfiles
-A collection of dotfiles I use for development
+# Dotfiles
+
+This is a collection of dotfiles that I use for development.
+
+## License
+
+[The Unlicense](LICENSE)
+
