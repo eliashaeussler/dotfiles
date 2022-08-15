@@ -1,0 +1,56 @@
+[user]
+	name = Elias Häußler
+	email = elias@haeussler.dev
+	signingkey = ED55EF18604AA17A
+[push]
+	followTags = true
+	default = current
+	autosetupremote = true
+[alias]
+	st = status
+	co = checkout
+	ci = commit
+	br = branch --sort=-committerdate
+	pf = push --force-with-lease
+	p-ci = push -o ci.skip
+	pf-ci = push --force-with-lease -o ci.skip
+	push-new = !"git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)"
+	lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+	lg = !"git lg1"
+	since = !"LAST_TAG=$(git describe --tags --abbrev=0); git log ${1-$LAST_TAG}..HEAD --pretty=format:'* %C(blue bold)%h%C(reset) - %C(green bold)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'"
+	tg = tag -l --sort=v:refname
+	tgr = tag -l --sort=-v:refname
+	spu = !"git stash && git pull && git stash pop"
+	t3push = !"git push --signed origin HEAD:refs/for/${1:-main}"
+	current = !"printf \"$(git rev-parse --abbrev-ref HEAD)\" | pbcopy && pbpaste"
+	chl = write-changelog -w
+	cup = !"f() { ddev composer u $@ && { export IFS=,; git commit --message=\"[TASK] Update $*\" -- composer.*; }; }; f"
+	cupa = !"f() { ddev composer u 'fr/*' && { git commit --message=\"[TASK] Update fr/* packages\" -- composer.*; }; }; f"
+	#release = "!f() { [ -z \"$1\" ] && { echo \"No release version set.\"; exit 1; } || { [ -f ext_emconf.php ] && git add ext_emconf.php; git commit -m \"[TASK] Bump version number to $1\"; git tag -s -m \"Release $1\" $1; }; }; f"
+	release = !"f() { [ -z \"$1\" ] && { echo \"No release version set.\"; exit 1; } || { git checkout master; git pull; git checkout develop; git flow release start $1; git flow finish; git push --atomic origin develop master;  }; }; f"
+	yolo = !git commit -m \"$(curl -s whatthecommit.com/index.txt)\"
+	wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
+	up = remote update --prune
+	orphans = !"git branch --format '%(refname:short) %(upstream)' | awk '{if (!$2) print $1;}'"
+	del = !"git push origin :\"$1\" && git branch -d \"$1\""
+[core]
+	editor = nano -r 72
+	autocrlf = input
+	excludesfile = ~/.gitignore
+	sshCommand = ssh -i ~/.ssh/id_rsa -F /dev/null
+[commit]
+	gpgSign = true
+[gpg]
+	program = gpg
+[pull]
+	rebase = true
+[rerere]
+	enabled = true
+[credential]
+	helper = osxkeychain
+[checkout]
+	workers = 4
+	defaultRemote = origin
+[fetch]
+	prune = true
