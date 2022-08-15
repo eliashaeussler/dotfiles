@@ -1,0 +1,61 @@
+# System
+alias ..='cd ..'
+alias doco='docker-compose'
+alias dcr='docker-compose run --rm --service-ports'
+alias restart_docker='killall Docker && open /Applications/Docker.app'
+alias tstamp='printf "$(date +%s)" | pbcopy && pbpaste'
+alias tm="timer_start"
+alias since="timer_stop"
+alias stop_php="brew services stop php"
+alias please="sudo"
+alias co="composer"
+alias con='printf "%s" "$(cat composer.json | jq -r .name)" | pbcopy'
+alias path='printf "%s" "$(pwd -P)" | pbcopy'
+
+# DDEV
+alias d="ddev"
+alias de="ddev exec"
+alias c="ddev composer"
+alias t3='ddev exec /var/www/html/app/vendor/bin/typo3cms'
+alias sf='ddev exec XDEBUG_MODE=debug /var/www/html/app/bin/console'
+alias clc='ddev exec /var/www/html/app/vendor/bin/typo3cms cache:flush'
+alias clcf='ddev exec /var/www/html/app/vendor/bin/typo3cms cache:flushgroups pages'
+alias clcdi='ddev exec rm -rf /var/www/html/var/cache/code/di'
+alias clopc='ddev exec "php -r \"opcache_reset();\""'
+alias dbc='ddev exec /var/www/html/app/vendor/bin/typo3cms database:updateschema -v'
+alias dbca="ddev exec /var/www/html/app/vendor/bin/typo3cms database:updateschema -v '*.drop,*.prefix,*.add,*.change'"
+alias da='ddev exec ssh-add -l >/dev/null 2>&1 || ddev auth ssh'
+alias xd='ddev xdebug status'
+alias xde='ddev xdebug on'
+alias xdd='ddev xdebug off'
+alias dl='ddev launch'
+alias dlt='ddev launch /typo3/'
+alias dli='ddev launch /typo3/install.php'
+alias boot_ddev='da && ddev start && git pull && c i && fetch_and_prune && ddev launch'
+
+# Git
+alias git='LC_ALL=en_US.UTF-8 git'
+alias f='git flow'
+alias fetch_all='find app/web/typo3conf/ext -type d -name ".git" -maxdepth 2 -exec git --git-dir={} --work-tree=$PWD/{}/.. fetch --all \;'
+alias fetch_and_prune='find app/web/typo3conf/ext -type d -name ".git" -maxdepth 2 -exec git --git-dir={} --work-tree=$PWD/{}/.. fetch --all --prune \;'
+alias prune_all='find app/web/typo3conf/ext -type d -name ".git" -maxdepth 2 -exec git --git-dir={} --work-tree=$PWD/{}/.. remote prune composer origin \;'
+
+# Software
+alias geany='open $1 -a /Applications/Geany.app'
+alias forklift='open $1 -a /Applications/ForkLift.app'
+
+# Functions
+function cver() {
+    version_string=`composer show $1 | grep versions`
+    if [ $version_string ]; then
+        echo $version_string | awk '{print $4}' | sed 's/v//'
+    fi
+}
+function elts() {
+    version=$1
+    shift
+    ssh-agent bash -c "ssh-add ~/.ssh/typo3-elts-$version; git $@"
+}
+
+setopt complete_aliases
+
