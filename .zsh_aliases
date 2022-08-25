@@ -15,6 +15,7 @@ alias path='printf "%s" "$(pwd -P)" | pbcopy'
 # DDEV
 alias d="ddev"
 alias de="ddev exec"
+alias ds="ddev ssh"
 alias c="ddev composer"
 alias t3='ddev exec /var/www/html/app/vendor/bin/typo3cms'
 alias sf='ddev exec XDEBUG_MODE=debug /var/www/html/app/bin/console'
