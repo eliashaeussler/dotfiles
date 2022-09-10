@@ -122,7 +122,7 @@ export LC_ALL=de_DE.UTF-8
 ssh-add --apple-use-keychain --apple-load-keychain $HOME/.ssh/id_rsa &>/dev/null
 
 # Shell init
-eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(brew shellenv)"
 eval "$(starship init zsh)"
 eval "$(mcfly init zsh)"
 
