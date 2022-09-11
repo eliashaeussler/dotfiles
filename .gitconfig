@@ -1,7 +1,7 @@
 [user]
 	name = Elias Häußler
 	email = elias@haeussler.dev
-	signingkey = ED55EF18604AA17A
+	signingkey = 6571EEFD
 [push]
 	followTags = true
 	default = current
