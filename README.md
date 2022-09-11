@@ -77,6 +77,10 @@ be automatically included by [`.zshrc`](.zshrc).
 | [`zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions) | `$ZSH_CUSTOM/plugins/zsh-autosuggestions` |
 | [`zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting) | `$ZSH_CUSTOM/plugins/zsh-syntax-highlighting` |
 
+#### Required programs
+
+* [McFly](https://github.com/cantino/mcfly)
+
 ## :star: License
 
 [The Unlicense](LICENSE)
