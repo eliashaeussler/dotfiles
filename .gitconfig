@@ -6,6 +6,7 @@
 	followTags = true
 	default = current
 	autosetupremote = true
+	gpgSign = if-asked
 [alias]
 	st = status
 	co = checkout
