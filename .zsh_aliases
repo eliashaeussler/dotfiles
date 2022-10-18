@@ -1,5 +1,6 @@
 # System
 alias ..='cd ..'
+alias k='k -Ah'
 alias doco='docker-compose'
 alias dcr='docker-compose run --rm --service-ports'
 alias restart_docker='killall Docker && open /Applications/Docker.app'

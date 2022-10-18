@@ -74,6 +74,7 @@ be automatically included by [`.zshrc`](.zshrc).
 |-------------|-------------------|
 | [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) | `$HOME/.oh-my-zsh` |
 | [`git-flow-completion`](https://github.com/bobthecow/git-flow-completion) | `$ZSH_CUSTOM/plugins/git-flow-completion` |
+| [`k`](https://github.com/supercrabtree/k) | `$ZSH_CUSTOM/plugins/k` |
 | [`zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions) | `$ZSH_CUSTOM/plugins/zsh-autosuggestions` |
 | [`zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting) | `$ZSH_CUSTOM/plugins/zsh-syntax-highlighting` |
 
