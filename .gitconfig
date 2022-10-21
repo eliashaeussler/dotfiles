@@ -9,6 +9,7 @@
 	gpgSign = if-asked
 [alias]
 	st = status
+	c = switch -c
 	co = checkout
 	ci = commit
 	br = branch --sort=-committerdate
@@ -35,7 +36,6 @@
 	up = remote update --prune
 	orphans = !"git branch --format '%(refname:short) %(upstream)' | awk '{if (!$2) print $1;}'"
 	del = !"git push origin :\"$1\" && git branch -d \"$1\""
-	create = switch -c
 [core]
 	editor = nano -r 72
 	autocrlf = input
