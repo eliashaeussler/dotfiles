@@ -58,6 +58,9 @@ function elts() {
     shift
     ssh-agent bash -c "ssh-add ~/.ssh/typo3-elts-$version; git $@"
 }
+function trash() {
+    mv "$@" "$HOME/.Trash/"
+}
 
 setopt complete_aliases
 
