@@ -41,6 +41,7 @@
 	autocrlf = input
 	excludesfile = ~/.gitignore
 	sshCommand = ssh -i ~/.ssh/id_rsa -F /dev/null
+	pager = delta
 [commit]
 	gpgSign = true
 [gpg]
@@ -58,3 +59,12 @@
 	prune = true
 [include]
 	path = ~/.gitconfig_extra
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	light = false
+[merge]
+	conflictStyle = diff3
+[diff]
+	colorMoved = default

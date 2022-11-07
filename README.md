@@ -23,6 +23,10 @@ ln -s /path/to/repo/clone/.gitignore
 add a file `.gitconfig_extra` to your home directory. It will
 be automatically included by [`.gitconfig`](.gitconfig).
 
+#### Required programs
+
+* [`git-delta`](https://github.com/dandavison/delta)
+
 ### SSH configuration
 
 Add the following to the beginning of your `.ssh/config` file:
