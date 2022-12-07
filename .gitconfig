@@ -13,9 +13,9 @@
 	co = checkout
 	ci = commit
 	br = branch --sort=-committerdate
-	pf = push --force-with-lease
+	pf = push --force-with-lease --force-if-includes
 	p-ci = push -o ci.skip
-	pf-ci = push --force-with-lease -o ci.skip
+	pf-ci = push --force-with-lease --force-if-includes -o ci.skip
 	push-new = !"git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)"
 	lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
