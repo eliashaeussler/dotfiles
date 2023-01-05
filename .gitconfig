@@ -13,6 +13,7 @@
 	co = checkout
 	ci = commit
 	br = branch --sort=-committerdate
+	ds = diff --staged
 	pf = push --force-with-lease --force-if-includes
 	p-ci = push -o ci.skip
 	pf-ci = push --force-with-lease --force-if-includes -o ci.skip
