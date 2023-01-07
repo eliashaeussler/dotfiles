@@ -1,15 +1,13 @@
 # Don't print a new line at the start of the prompt
 add_newline = false
 
-[character]
-error_symbol = "🚨 "
-
 [git_commit]
 only_detached = false
 tag_disabled = false
 
 [status]
 disabled = false
+symbol = "🚨 "
 
 [time]
 disabled = false
