@@ -17,6 +17,9 @@ cd dotfiles
 ./setup.sh
 ```
 
+:bulb: The setup script works on macOS only and assumes you have
+[Homebrew](https://brew.sh/) installed.
+
 ### :technologist: Manual setup
 
 Run all required commands from the following configuration section.
