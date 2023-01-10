@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -e
+
+timestamp="$(printf "$(date +%s)")"
+echo $timestamp > /tmp/timer_start
+echo "Timer is running."
+

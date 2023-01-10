@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -e
+
+[[ -f /tmp/timer_start ]] || { >&2 echo "Timer is not running. Bye!"; exit 1; }
+
+time_start="$(cat /tmp/timer_start)"
+time_end="$(printf "$(date +%s)")"
+time_delta=$((time_end-time_start))
+rm -f /tmp/timer_start
+
+if [[ $time_delta -ge 60 ]]; then
+    minutes="$(awk "BEGIN {print ${time_delta}/60}" | tr ',' '.')"
+    time_variants=" (equals ${minutes} minutes"
+    if [[ ${minutes%.*} -ge 60 ]]; then
+        hours="$(awk "BEGIN {print ${minutes}/60}" | tr ',' '.')"
+        time_variants="${time_variants} or ${hours} hours"
+    fi
+    time_variants="${time_variants})"
+fi
+
+echo "Total time: $(tput bold)${time_delta} seconds${time_variants}$(tput sgr0)"
+
