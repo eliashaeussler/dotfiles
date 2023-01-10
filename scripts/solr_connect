@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+set -e
+
+function get_unused_local_port() {
+  if ! command -v python &>/dev/null; then
+    >&2 echo "Python is required to run this script."
+    exit 1
+  fi
+
+  python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()'
+}
+
+function resolve_hostname_or_ip() {
+  local hostname_or_ip="$1"
+
+  if [ -z "$hostname_or_ip" ]; then
+    >&2 echo "You must specify an IP or a valid hostname from your SSH config."
+    exit 1
+  fi
+
+  ssh -G "$hostname_or_ip" | awk '/^hostname / { print $2 }'
+}
+
+readonly server_ip="$(resolve_hostname_or_ip "$1")"
+readonly remote_solr_url="127.0.0.1:8983"
+readonly local_port="$(get_unused_local_port)"
+readonly local_url="127.0.0.1:$local_port"
+readonly temp_socket="/tmp/.ssh-gateway-$server_ip-$local_port"
+
+# Print connection details
+echo "Server IP: $server_ip"
+echo "Remote Solr URL: http://$remote_solr_url"
+echo "Local Solr URL: http://$local_url"
+
+# Connect
+echo
+echo "Trying to connect..."
+ssh -L "$local_url":"$remote_solr_url" -S "$temp_socket" -M -fN "$server_ip"
+
+# Early return if connection failed
+if ! ssh -S "$temp_socket" -O check "$server_ip" &>/dev/null; then
+  echo
+  >&2 echo "An error occurred while establishing a connection."
+  exit 3
+fi
+
+# Open Solr in browser
+echo
+echo "Opening Solr in your browser..."
+open "http://$local_url"
+
+# Print command for connection termination
+echo
+echo "Run this command to terminate the connection:"
+echo "└─ ssh -S $temp_socket -O exit $server_ip"
