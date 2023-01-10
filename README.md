@@ -10,6 +10,19 @@ Clone the repository first:
 git clone https://github.com/eliashaeussler/dotfiles.git
 ```
 
+### :robot: Automatic setup
+
+```bash
+cd dotfiles
+./setup.sh
+```
+
+### :technologist: Manual setup
+
+Run all required commands from the following configuration section.
+
+## :pencil: Shipped configuration
+
 ### Git configuration
 
 In your home directory, run the following:
