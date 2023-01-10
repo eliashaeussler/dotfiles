@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+set -e
+
+PHP_VERSION="$1"
+INVALID_VERSION=1
+
+if [ -z "$PHP_VERSION" ]; then
+    >&2 echo "No PHP version specified. Usage: $0 <php-version>"
+    exit 1
+fi
+
+ALL_VERSIONS="$(brew info --installed --json | jq -r '.[] | select(.name == "php") | .aliases + .versioned_formulae | .[]')"
+
+for version in $ALL_VERSIONS; do
+  if [ "php@$PHP_VERSION" = "$version" ]; then
+    INVALID_VERSION=0
+    break
+  fi
+done
+
+if [ "$INVALID_VERSION" = 1 ]; then
+  >&2 echo "This PHP version is not supported. Run \"brew install php@$PHP_VERSION\" to install it."
+  exit 1
+fi
+
+brew unlink --quiet php php@"$PHP_VERSION"
+brew link --quiet --force --overwrite php@"$PHP_VERSION"
+echo
+php -v

@@ -86,6 +86,14 @@ be automatically included by [`.zshrc`](.zshrc).
 
 * [McFly](https://github.com/cantino/mcfly)
 
+### Scripts
+
+In your home directory, run the following:
+
+```bash
+ln -s /path/to/repo/clone/scripts
+```
+
 ## :star: License
 
 [The Unlicense](LICENSE)
