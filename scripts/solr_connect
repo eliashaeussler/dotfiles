@@ -2,12 +2,12 @@
 set -e
 
 function get_unused_local_port() {
-  if ! command -v python &>/dev/null; then
+  if ! command -v python3 &>/dev/null; then
     >&2 echo "Python is required to run this script."
     exit 1
   fi
 
-  python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()'
+  python3 -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()'
 }
 
 function resolve_hostname_or_ip() {
