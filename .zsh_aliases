@@ -15,6 +15,7 @@ alias path='printf "%s" "$(pwd -P)" | pbcopy && pbpaste'
 alias tmp='printf "%s" "$(php -r "echo sys_get_temp_dir();")" | pbcopy && pbpaste'
 alias y='say -v Markus'
 alias yc='say -v Daniel "$(curl https://whatthecommit.com/index.txt -s)"'
+alias yp='y "$(pbpaste)"'
 
 # DDEV
 alias d="ddev"
