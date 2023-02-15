@@ -43,6 +43,7 @@ alias boot_ddev='da && ddev start && git pull && c i && fetch_and_prune && ddev 
 alias git='LC_ALL=en_US.UTF-8 git'
 alias f='git flow'
 alias gg='git gone prune'
+alias gu='git update'
 alias fetch_all='find app/web/typo3conf/ext -type d -name ".git" -maxdepth 2 -exec git --git-dir={} --work-tree=$PWD/{}/.. fetch --all \;'
 alias fetch_and_prune='find app/web/typo3conf/ext -type d -name ".git" -maxdepth 2 -exec git --git-dir={} --work-tree=$PWD/{}/.. fetch --all --prune \;'
 alias prune_all='find app/web/typo3conf/ext -type d -name ".git" -maxdepth 2 -exec git --git-dir={} --work-tree=$PWD/{}/.. remote prune composer origin \;'
