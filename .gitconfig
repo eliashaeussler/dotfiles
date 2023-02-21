@@ -25,7 +25,7 @@
 	since = !"LAST_TAG=$(git describe --tags --abbrev=0); git log ${1-$LAST_TAG}..HEAD --pretty=format:'* %C(blue bold)%h%C(reset) - %C(green bold)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'"
 	tg = tag -l --sort=v:refname
 	tgr = tag -l --sort=-v:refname
-	spu = !"git stash && git pull && git stash pop"
+	spu = !"git stash && git pull && git gone prune && git stash pop"
 	t3push = !"git push --signed origin HEAD:refs/for/${1:-main}"
 	current = !"printf \"$(git rev-parse --abbrev-ref HEAD)\" | pbcopy && pbpaste"
 	chl = write-changelog -w
