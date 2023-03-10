@@ -16,6 +16,7 @@ alias tmp='printf "%s" "$(php -r "echo sys_get_temp_dir();")" | pbcopy && pbpast
 alias y='say -v Markus'
 alias yc='say -v Daniel "$(curl https://whatthecommit.com/index.txt -s)"'
 alias yp='y "$(pbpaste)"'
+alias debug="php -dxdebug.mode=debug -dxdebug.client_host=127.0.0.1 -dxdebug.client_port=9003 -dxdebug.start_with_request=yes"
 
 # DDEV
 alias d="ddev"
