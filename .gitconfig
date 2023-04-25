@@ -45,6 +45,7 @@
 	excludesfile = ~/.gitignore
 	sshCommand = ssh -i ~/.ssh/id_rsa -F /dev/null
 	pager = delta
+	ignorecase = false
 [commit]
 	gpgSign = true
 [gpg]
