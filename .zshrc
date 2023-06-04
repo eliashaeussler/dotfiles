@@ -78,6 +78,7 @@ plugins=(
   docker
   docker-compose
   extract
+  gh
   git
   git-flow-avh
   git-flow-completion
