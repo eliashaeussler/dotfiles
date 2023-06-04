@@ -82,6 +82,7 @@ plugins=(
   git
   git-flow-avh
   git-flow-completion
+  jump
   k
   macos
   zsh-autosuggestions
