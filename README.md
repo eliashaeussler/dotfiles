@@ -42,6 +42,7 @@ be automatically included by [`.gitconfig`](.gitconfig).
 #### Required programs
 
 * [`git-delta`](https://github.com/dandavison/delta)
+* [`git-gone`](https://github.com/swsnr/git-gone)
 
 ### SSH configuration
 
