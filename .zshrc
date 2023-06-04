@@ -86,6 +86,7 @@ plugins=(
   k
   macos
   urltools
+  web-search
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
