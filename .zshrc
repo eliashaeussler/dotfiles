@@ -85,6 +85,7 @@ plugins=(
   jump
   k
   macos
+  urltools
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
