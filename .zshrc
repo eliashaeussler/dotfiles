@@ -77,6 +77,7 @@ ZSH_THEME="agnoster"
 plugins=(
   docker
   docker-compose
+  extract
   git
   git-flow-avh
   git-flow-completion
