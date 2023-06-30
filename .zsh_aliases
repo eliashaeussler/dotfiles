@@ -50,9 +50,10 @@ alias fetch_and_prune='find app/web/typo3conf/ext -type d -name ".git" -maxdepth
 alias prune_all='find app/web/typo3conf/ext -type d -name ".git" -maxdepth 2 -exec git --git-dir={} --work-tree=$PWD/{}/.. remote prune composer origin \;'
 
 # Software
-alias forklift='open $1 -a /Applications/ForkLift.app'
-alias geany='open $1 -a /Applications/Geany.app'
-alias iterm='open ${1-$PWD} -a /Applications/iTerm.app'
+alias forklift='(){ open ${1-$PWD} -a /Applications/ForkLift.app; }'
+alias geany='(){ open $1 -a /Applications/Geany.app; }'
+alias iterm='(){ echo open ${1-$PWD} -a /Applications/iTerm.app; }'
+alias pst='(){ open ${1-$PWD} -a /Applications/PhpStorm.app; }'
 
 # Functions
 function cver() {
