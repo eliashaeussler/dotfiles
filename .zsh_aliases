@@ -49,6 +49,9 @@ alias fetch_all='find app/web/typo3conf/ext -type d -name ".git" -maxdepth 2 -ex
 alias fetch_and_prune='find app/web/typo3conf/ext -type d -name ".git" -maxdepth 2 -exec git --git-dir={} --work-tree=$PWD/{}/.. fetch --all --prune \;'
 alias prune_all='find app/web/typo3conf/ext -type d -name ".git" -maxdepth 2 -exec git --git-dir={} --work-tree=$PWD/{}/.. remote prune composer origin \;'
 
+# GitHub
+alias am='gh pr merge --auto -d -m'
+
 # Software
 alias forklift='(){ open ${1-$PWD} -a /Applications/ForkLift.app; }'
 alias geany='(){ open $1 -a /Applications/Geany.app; }'
