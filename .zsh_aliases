@@ -73,6 +73,13 @@ function elts() {
 function trash() {
     mv "$@" "$HOME/.Trash/"
 }
+function xdr() {
+    local remoteIp="$1"
+    local remotePort="${2:-9000}"
+    local localPort="${3:-9000}"
+    local remoteDockerIp="$(ssh "$remoteIp" -T facter networking.interfaces.docker0.ip)"
+    ssh -R "$remoteDockerIp":"$remotePort":127.0.0.1:"$localPort" "$remoteIp" -vvv
+}
 
 setopt complete_aliases
 
