@@ -52,6 +52,7 @@ alias prune_all='find app/web/typo3conf/ext -type d -name ".git" -maxdepth 2 -ex
 # GitHub
 alias am='gh pr merge --auto -d -m'
 alias pro='gh pr view --web'
+alias prm='gh pr merge --admin -d -m'
 
 # Software
 alias forklift='(){ open ${1-$PWD} -a /Applications/ForkLift.app; }'
