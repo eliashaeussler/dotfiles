@@ -55,6 +55,11 @@ alias amd='gh pr merge --disable-auto'
 alias pro='gh pr view --web'
 alias prm='gh pr merge --admin -d -m'
 
+# GitLab
+alias glm='glab mr merge --when-pipeline-succeeds --yes'
+alias glr='glab mr update --ready'
+alias glv='glab repo view -w'
+
 # Software
 alias forklift='(){ open ${1-$PWD} -a /Applications/ForkLift.app; }'
 alias geany='(){ open $1 -a /Applications/Geany.app; }'
