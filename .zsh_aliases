@@ -62,6 +62,7 @@ alias prm='gh pr merge --admin -d -m'
 
 # GitLab
 alias glm='glab mr merge -d --when-pipeline-succeeds --yes'
+alias glmr='glab mr create -a e.haeussler -f -b develop --yes'
 alias glr='glab mr update --ready'
 alias glv='glab repo view -w'
 
