@@ -1,9 +1,6 @@
 # System
 alias ..='cd ..'
 alias k='k -Ah'
-alias doco='docker-compose'
-alias dcr='docker-compose run --rm --service-ports'
-alias restart_docker='killall Docker && open /Applications/Docker.app'
 alias tstamp='printf "$(date +%s)" | pbcopy && pbpaste'
 alias tm="timer_start"
 alias since="timer_stop"
@@ -17,6 +14,14 @@ alias y='say -v Markus'
 alias yc='say -v Daniel "$(curl https://whatthecommit.com/index.txt -s)"'
 alias yp='y "$(pbpaste)"'
 alias debug="php -dxdebug.mode=debug -dxdebug.client_host=127.0.0.1 -dxdebug.client_port=9003 -dxdebug.start_with_request=yes"
+
+# Docker
+alias doco='docker-compose'
+alias dcr='docker-compose run --rm --service-ports'
+alias dr='docker run --rm -it'
+alias dre='docker run --rm -it --entrypoint ""'
+alias drv='(){ docker run --rm -it -v "$(pwd -P):$1" ${@:2}; }'
+alias restart_docker='killall Docker && open /Applications/Docker.app'
 
 # DDEV
 alias d="ddev"
