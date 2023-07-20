@@ -72,6 +72,9 @@ alias geany='(){ open $1 -a /Applications/Geany.app; }'
 alias iterm='(){ echo open ${1-$PWD} -a /Applications/iTerm.app; }'
 alias pst='(){ open ${1-$PWD} -a /Applications/PhpStorm.app; }'
 
+# Internet
+alias pack='(){ open "https://packagist.org/packages/$(omz_urlencode ${1:-$(con)})"; }'
+
 # Functions
 function cver() {
     version_string=`composer show $1 | grep versions`
