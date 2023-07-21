@@ -57,6 +57,7 @@ alias prune_all='find app/web/typo3conf/ext -type d -name ".git" -maxdepth 2 -ex
 # GitHub
 alias am='gh pr merge --auto -d -m'
 alias amd='gh pr merge --disable-auto'
+alias ghc='(){ mkdir -p "~/Sites/$1" && cd "~/Sites/$1" && gh repo clone "$1" .; }'
 alias pro='gh pr view --web'
 alias prm='gh pr merge --admin -d -m'
 
