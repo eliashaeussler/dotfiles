@@ -62,6 +62,7 @@ alias pro='gh pr view --web'
 alias prm='gh pr merge --admin -d -m'
 
 # GitLab
+alias glc='(){ mkdir -p "~/Sites/$1" && cd "~/Sites/$1" && glab repo clone "$1" .; }'
 alias glm='glab mr merge -d --when-pipeline-succeeds --yes'
 alias glmr='glab mr create -a e.haeussler -f -b develop --remove-source-branch --yes'
 alias glr='glab mr update --ready'
