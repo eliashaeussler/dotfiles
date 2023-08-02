@@ -66,6 +66,7 @@ alias glc='(){ REPO_PATH="$HOME/Sites/$1"; mkdir -p "$REPO_PATH" && glab repo cl
 alias glm='glab mr merge -d --when-pipeline-succeeds --yes'
 alias glmr='(){ glab mr create -a e.haeussler -f -b "${1:-develop}" --remove-source-branch --yes; }'
 alias glr='glab mr update --ready'
+alias glmo='glab mr view -w'
 alias glv='glab repo view -w'
 
 # Software
