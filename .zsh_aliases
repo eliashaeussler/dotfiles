@@ -93,7 +93,14 @@ function elts() {
 function trash() {
     mv "$@" "$HOME/.Trash/"
 }
-function xdr() {
+function lpf() {
+    local remoteIp="$1"
+    local remotePort="${2:-9000}"
+    local localPort="${3:-9000}"
+    local remoteDockerIp="$(ssh "$remoteIp" -T facter networking.interfaces.docker0.ip)"
+    ssh -L 127.0.0.1:"$localPort":"$remoteDockerIp":"$remotePort" "$remoteIp" -vvv
+}
+function rpf() {
     local remoteIp="$1"
     local remotePort="${2:-9000}"
     local localPort="${3:-9000}"
