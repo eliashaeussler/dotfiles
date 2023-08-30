@@ -22,7 +22,7 @@ function resolve_hostname_or_ip() {
 }
 
 readonly server_ip="$(resolve_hostname_or_ip "$1")"
-readonly remote_solr_url="127.0.0.1:8983"
+readonly remote_solr_url="${2:-127.0.0.1}:8983"
 readonly local_port="$(get_unused_local_port)"
 readonly local_url="127.0.0.1:$local_port"
 readonly temp_socket="/tmp/.ssh-gateway-$server_ip-$local_port"
