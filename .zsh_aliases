@@ -14,6 +14,7 @@ alias y='say -v Markus'
 alias yc='say -v Daniel "$(curl https://whatthecommit.com/index.txt -s)"'
 alias yp='y "$(pbpaste)"'
 alias debug="php -dxdebug.mode=debug -dxdebug.client_host=127.0.0.1 -dxdebug.client_port=9003 -dxdebug.start_with_request=yes"
+alias dump='(){ sudo tcpdump -vv -x -X -s 1500 -i lo0 "port $1" }'
 
 # Docker
 alias doco='docker-compose'
