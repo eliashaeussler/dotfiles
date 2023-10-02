@@ -74,6 +74,7 @@ alias glv='glab repo view -w'
 alias forklift='(){ open ${1-$PWD} -a /Applications/ForkLift.app; }'
 alias geany='(){ open $1 -a /Applications/Geany.app; }'
 alias iterm='(){ open ${1-$PWD} -a /Applications/iTerm.app; }'
+alias it=iterm
 alias pst='(){ open ${1-$PWD} -a /Applications/PhpStorm.app; }'
 
 # Internet
