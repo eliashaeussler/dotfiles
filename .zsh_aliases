@@ -45,6 +45,7 @@ alias dl='ddev launch'
 alias dlt='ddev launch /typo3/'
 alias dli='ddev launch /typo3/install.php'
 alias boot_ddev='da && ddev start && git pull && c i && fetch_and_prune && ddev launch'
+alias daf='ddev assets fetch'
 
 # Git
 alias git='LC_ALL=en_US.UTF-8 git'
