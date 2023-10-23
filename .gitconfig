@@ -41,7 +41,7 @@
 	wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
 	up = remote update --prune
 	orphans = !"git branch --format '%(refname:short) %(upstream)' | awk '{if (!$2) print $1;}'"
-	del = !"git push origin :\"$1\" && git branch -d \"$1\""
+	del = !"f() { git push origin \":$1\"; git branch -D \"$1\"; }; f"
 	update = !"git pull && git gone prune"
 	goto = !"f() { git checkout \":/$1\"; }; f"
 [core]
