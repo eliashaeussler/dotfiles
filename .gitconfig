@@ -42,6 +42,7 @@
 	orphans = !"git branch --format '%(refname:short) %(upstream)' | awk '{if (!$2) print $1;}'"
 	del = !"git push origin :\"$1\" && git branch -d \"$1\""
 	update = !"git pull && git gone prune"
+	goto = !"f() { git checkout \":/$1\"; }; f"
 [core]
 	editor = nano -r 72
 	autocrlf = input
