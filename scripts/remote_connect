@@ -22,20 +22,20 @@ function resolve_hostname_or_ip() {
 }
 
 readonly server_ip="$(resolve_hostname_or_ip "$1")"
-readonly remote_solr_url="${2:-127.0.0.1}:8983"
+readonly remote_url="${2:-127.0.0.1}:${3:-8983}"
 readonly local_port="$(get_unused_local_port)"
 readonly local_url="127.0.0.1:$local_port"
 readonly temp_socket="/tmp/.ssh-gateway-$server_ip-$local_port"
 
 # Print connection details
 echo "Server IP: $server_ip"
-echo "Remote Solr URL: http://$remote_solr_url"
-echo "Local Solr URL: http://$local_url"
+echo "Remote URL: http://$remote_url"
+echo "Local URL: http://$local_url"
 
 # Connect
 echo
 echo "Trying to connect..."
-ssh -L "$local_url":"$remote_solr_url" -S "$temp_socket" -M -fN "$server_ip"
+ssh -L "$local_url":"$remote_url" -S "$temp_socket" -M -fN "$server_ip"
 
 # Early return if connection failed
 if ! ssh -S "$temp_socket" -O check "$server_ip" &>/dev/null; then
@@ -44,9 +44,9 @@ if ! ssh -S "$temp_socket" -O check "$server_ip" &>/dev/null; then
   exit 3
 fi
 
-# Open Solr in browser
+# Open in browser
 echo
-echo "Opening Solr in your browser..."
+echo "Opening remote interface in your browser..."
 open "http://$local_url"
 
 # Print command for connection termination
