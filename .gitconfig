@@ -1,7 +1,7 @@
 [user]
 	name = Elias Häußler
 	email = elias@haeussler.dev
-	signingkey = 6571EEFD
+	signingkey = ~/.ssh/id_rsa.pub
 [push]
 	followTags = true
 	default = current
@@ -56,7 +56,7 @@
 [commit]
 	gpgSign = true
 [gpg]
-	program = gpg
+	format = ssh
 [pull]
 	rebase = true
 [rerere]
@@ -81,3 +81,5 @@
 	colorMoved = default
 [init]
 	defaultBranch = main
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowed_signers
