@@ -73,8 +73,15 @@
 [interactive]
 	diffFilter = delta --color-only
 [delta]
+	line-numbers = true
 	navigate = true
+	features = light-mode
+[delta "light-mode"]
+	light = true
+	dark = false
+[delta "dark-mode"]
 	light = false
+	dark = true
 [merge]
 	conflictStyle = diff3
 [diff]

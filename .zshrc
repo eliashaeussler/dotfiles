@@ -147,3 +147,8 @@ if [ -f "$HOME/.zshrc_extra" ]; then
   source "$HOME/.zshrc_extra"
 fi
 
+# Enable delta dark mode in iTerm
+if [ -n "$ITERM_PROFILE" ]; then
+  export DELTA_FEATURES="+dark-mode"
+fi
+
