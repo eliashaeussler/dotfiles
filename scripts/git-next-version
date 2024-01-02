@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+set -e
+
+STEP="${1:-next}"
+
+if ! LATEST_VERSION="$(git describe --tags "$(git rev-list --tags --max-count=1)" 2>/dev/null)"; then
+  echo "Error: Unable to determine latest version."
+  exit 1
+fi
+
+case $STEP in
+  patch|p|next|n):
+    echo "$LATEST_VERSION" | awk -F. -v OFS=. '{$NF += 1; print}'
+    ;;
+  minor|min)
+    echo "$LATEST_VERSION" | awk -F. -v OFS=. '{NF=2; $NF += 1; print $1"."$2".0"}'
+    ;;
+  major|maj)
+    echo "$LATEST_VERSION" | awk -F. -v OFS=. '{NF=1; $NF += 1; print $1".0.0"}'
+    ;;
+  *)
+    echo "Error: Version step \"${STEP}\" is invalid."
+    echo "Allowed steps:"
+    echo "  * next, n (alias for \"patch\"; default)"
+    echo "  * patch, p"
+    echo "  * minor, min"
+    echo "  * major, maj"
+    exit 1
+esac

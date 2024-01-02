@@ -1,32 +1,29 @@
 #!/usr/bin/env sh
 set -e
 
-NEXT_VERSION="$1"
-LATEST_TAG="$(git describe --tags "$(git rev-list --tags --max-count=1)")"
-MAIN_BRANCH="$(git remote show origin | grep "HEAD branch" | sed 's/.*: //')"
+VERSION="$1"
 
-if [ -z "$NEXT_VERSION" ]; then
-  echo "No release version set."
-  exit 1
-fi
-
-case $NEXT_VERSION in
-  patch|next):
-    NEXT_VERSION="$(echo "$LATEST_TAG" | awk -F. -v OFS=. '{$NF += 1; print}')"
+# Resolve version from user input
+case $VERSION in
+  patch|p|next|n|minor|min|major|maj):
+    VERSION="$(git next-version "$VERSION")"
     ;;
-  minor)
-    NEXT_VERSION="$(echo "$LATEST_TAG" | awk -F. -v OFS=. '{NF=2; $NF += 1; print $1"."$2".0"}')"
-    ;;
-  major)
-    NEXT_VERSION="$(echo "$LATEST_TAG" | awk -F. -v OFS=. '{NF=1; $NF += 1; print $1".0.0"}')"
-    ;;
+  "")
+    echo "No release version set."
+    exit 1
 esac
 
-git checkout "$MAIN_BRANCH"
+# Lookup default branch
+DEFAULT_BRANCH="$(git remote show origin | grep "HEAD branch" | sed 's/.*: //')"
+
+# Make sure branches are up to date
+git checkout "$DEFAULT_BRANCH"
 git pull
 git checkout develop
 
-git flow release start "$NEXT_VERSION"
+# Create release
+git flow release start "$VERSION"
 git flow finish
 
-git push --atomic origin develop "$MAIN_BRANCH"
+# Push branches
+git push --atomic origin develop "$DEFAULT_BRANCH"
