@@ -14,7 +14,7 @@ case $VERSION in
 esac
 
 # Lookup default branch
-DEFAULT_BRANCH="$(git remote show origin | grep "HEAD branch" | sed 's/.*: //')"
+DEFAULT_BRANCH="$(LC_ALL=en_US.UTF-8 git remote show origin | grep "HEAD branch" | sed 's/.*: //')"
 
 # Make sure branches are up to date
 git checkout "$DEFAULT_BRANCH"
