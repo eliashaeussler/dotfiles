@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+set -e
+
+VERSION="$1"
+
+# Resolve version from user input
+case $VERSION in
+  patch|p|next|n|minor|min|major|maj):
+    VERSION="$(git next-version "$VERSION")"
+    ;;
+  "")
+    echo "No release version set."
+    exit 1
+esac
+
+# Create version tag
+git tag -s "$VERSION" -m "$VERSION"
