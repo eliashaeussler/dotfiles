@@ -7,6 +7,7 @@ alias since="timer_stop"
 alias stop_php="brew services stop php"
 alias please="sudo"
 alias co="composer"
+alias pcc="composer exec phpstan clear-result-cache"
 alias con='printf "%s" "$(jq -r .name composer.json)" | pbcopy && pbpaste'
 alias path='printf "%s" "$(pwd -P)" | pbcopy && pbpaste'
 alias tmp='printf "%s" "$(php -r "echo sys_get_temp_dir();")" | pbcopy && pbpaste'
