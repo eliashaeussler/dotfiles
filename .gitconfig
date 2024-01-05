@@ -17,6 +17,7 @@
 	ds = diff --staged
 	ff = flow finish
 	fs = flow release start
+	nv = next-version
 	pf = push --force-with-lease --force-if-includes
 	p-ci = push -o ci.skip
 	pf-ci = push --force-with-lease --force-if-includes -o ci.skip
