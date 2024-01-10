@@ -61,6 +61,7 @@ alias grmi='git release minor'
 alias grma='git release major'
 alias gb='git commit -em "[BUGFIX]"'
 alias gf='git commit -em "[FEATURE]"'
+alias gr='git commit -em "[RELEASE]"'
 alias gt='git commit -em "[TASK]"'
 
 # GitHub
