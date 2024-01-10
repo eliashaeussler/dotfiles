@@ -133,10 +133,10 @@ function _install_zsh() {
   else
     echo "'zsh-syntax-highlighting' is already installed."
   fi
-  if ! is_brew_package_installed cantino/mcfly/mcfly; then
-    brew install cantino/mcfly/mcfly
+  if ! is_brew_package_installed mcfly; then
+    brew install mcfly
   else
-    echo "'cantino/mcfly/mcfly' is already installed."
+    echo "'mcfly' is already installed."
   fi
 }
 
