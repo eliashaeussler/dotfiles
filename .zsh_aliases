@@ -59,6 +59,9 @@ alias prune_all='find app/web/typo3conf/ext -type d -name ".git" -maxdepth 2 -ex
 alias grp='git release patch'
 alias grmi='git release minor'
 alias grma='git release major'
+alias gb='git commit -em "[BUGFIX]"'
+alias gf='git commit -em "[FEATURE]"'
+alias gt='git commit -em "[TASK]"'
 
 # GitHub
 alias am='gh pr merge --auto -d -m'
