@@ -9,7 +9,7 @@ if [ -z "$PHP_VERSION" ]; then
     exit 1
 fi
 
-ALL_VERSIONS="$(brew info --installed --json | jq -r '.[] | select(.name == "php") | .aliases + .versioned_formulae | .[]')"
+ALL_VERSIONS="$(brew info --installed --json | jq -r '.[] | select(.name == "php" or (.name | startswith("php@"))) | [.name] + .aliases + .versioned_formulae | .[]')"
 
 for version in $ALL_VERSIONS; do
   if [ "php@$PHP_VERSION" = "$version" ]; then
