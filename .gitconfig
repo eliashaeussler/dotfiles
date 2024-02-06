@@ -91,3 +91,8 @@
 	defaultBranch = main
 [gpg "ssh"]
 	allowedSignersFile = ~/.ssh/allowed_signers
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
