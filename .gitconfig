@@ -41,6 +41,7 @@
 	#release = "!f() { [ -z \"$1\" ] && { echo \"No release version set.\"; exit 1; } || { [ -f ext_emconf.php ] && git add ext_emconf.php; git commit -m \"[TASK] Bump version number to $1\"; git tag -s -m \"Release $1\" $1; }; }; f"
 	#release = !"f() { MAIN_BRANCH=\"$(git remote show origin | grep \"HEAD branch\" | sed 's/.*: //')\"; [ -z \"$1\" ] && { echo \"No release version set.\"; exit 1; } || { git checkout \"$MAIN_BRANCH\"; git pull; git checkout develop; git flow release start $1; git flow finish; git push --atomic origin develop \"$MAIN_BRANCH\"; }; }; f"
 	#bump = !"f() { [ -z \"$1\" ] && { echo \"No version set.\"; exit 1; } || { git tag -s \"$1\" -m \"$1\"; }; }; f"
+	cr = !"f() { [ -z \"$1\" ] && { PROJECT=\"$(basename \"$PWD\")\"; } || { PROJECT=\"$1\"; }; VERSION=\"$(git branch --show-current | awk -F/ '{print $2}')\"; git commit -em \"[RELEASE] Release of $PROJECT $VERSION\"; }; f"
 	yolo = !"message=\"$(curl -s https://whatthecommit.com/index.txt)\"; git commit -m \"$message\"; say -v Daniel \"$message\""
 	wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
 	up = remote update --prune
