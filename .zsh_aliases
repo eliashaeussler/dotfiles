@@ -1,5 +1,6 @@
 # System
 alias ..='cd ..'
+alias goto='(){ mkdir -p "$1" && cd "$1" }'
 alias k='k -Ah'
 alias tstamp='printf "$(date +%s)" | pbcopy && pbpaste'
 alias tm="timer_start"
