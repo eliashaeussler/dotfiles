@@ -5,6 +5,12 @@ add_newline = false
 only_detached = false
 tag_disabled = false
 
+[git_metrics]
+disabled = false
+
+[cmd_duration]
+show_milliseconds = true
+
 [status]
 disabled = false
 symbol = "🚨 "
