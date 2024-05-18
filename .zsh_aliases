@@ -68,21 +68,22 @@ alias gt='git commit -em "[TASK]"'
 alias gcr='git cr'
 
 # GitHub
-alias am='gh pr merge --auto -d -m'
-alias amd='gh pr merge --disable-auto'
 alias ghc='(){ REPO_PATH="$HOME/${2:-Sites}/$1"; mkdir -p "$REPO_PATH" && gh repo clone "$1" "$REPO_PATH" && cd "$REPO_PATH"; }'
+alias ghv='gh browse'
+alias prm='gh pr merge --auto -d -m'
+alias prm!='prm --admin'
+alias prmd='gh pr merge --disable-auto'
 alias pro='gh pr view --web'
-alias prm='gh pr merge --admin -d -m'
 
 # GitLab
-alias gla='glab mr approve'
-alias glam='gla && glm'
 alias glc='(){ REPO_PATH="$HOME/${2:-Sites}/$1"; mkdir -p "$REPO_PATH" && glab repo clone "$1" "$REPO_PATH" && cd "$REPO_PATH"; }'
-alias glm='glab mr merge -d --auto-merge --yes'
-alias glmr='(){ glab mr create -a e.haeussler -f -b "${1:-develop}" --remove-source-branch --yes; }'
-alias glr='glab mr update --ready'
-alias glmo='glab mr view -w'
 alias glv='glab repo view -w'
+alias mr='(){ glab mr create -a e.haeussler -f -b "${1:-develop}" --remove-source-branch --yes; }'
+alias mra='glab mr approve'
+alias mrm='glab mr merge -d --auto-merge --yes'
+alias mram='mra && mrm'
+alias mrr='glab mr update --ready'
+alias mro='glab mr view -w'
 
 # Software
 alias forklift='(){ open ${1-$PWD} -a /Applications/ForkLift.app; }'
