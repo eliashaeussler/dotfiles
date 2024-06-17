@@ -58,23 +58,31 @@ function _install_git() {
 function _install_ssh() {
   local source_config_file="${source_dir}/.ssh/config"
   local target_config_file="${target_dir}/.ssh/config"
+  local sockets_directory="${target_dir}/.ssh/sockets"
   local header_comment="# added by eliashaeussler/dotfiles"
   local content="${header_comment}\nMatch all\nInclude ${source_config_file}\n"
 
   echo "Configuring includes..."
   if [ -f "${target_config_file}" ]; then
     content="${content}\n$(cat "${target_config_file}")"
-
-    if grep -q "${header_comment}" "${target_config_file}"; then
-      echo "Already added."
-      return 0
-    fi
   else
     mkdir -p "$(dirname "${target_config_file}")"
   fi
 
-  echo -e "${content}" > "$target_config_file"
-  echo "Done."
+  if grep -q "${header_comment}" "${target_config_file}"; then
+    echo "Already added."
+  else
+    echo -e "${content}" > "$target_config_file"
+    echo "Done."
+  fi
+
+  echo "Creating sockets directory..."
+  if [ -d "${sockets_directory}" ]; then
+    echo "Already exists."
+  else
+    mkdir -p "${sockets_directory}"
+    echo "Done."
+  fi
 }
 
 function _install_starship() {
