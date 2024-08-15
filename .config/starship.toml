@@ -20,7 +20,7 @@ disabled = false
 time_format = "%H:%M"
 
 [custom.ddev_version]
-command = "ddev version -j | jq -r '.raw.\"DDEV version\"'"
+command = "ddev version | grep 'DDEV version' | awk '{print $3}'"
 description = "The current DDEV version"
 detect_folders = [".ddev"]
 symbol = "🤖 "
