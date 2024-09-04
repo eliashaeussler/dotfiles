@@ -3,7 +3,7 @@ set -e
 
 STEP="${1:-next}"
 
-if ! LATEST_VERSION="$(git describe --tags "$(git rev-list --tags --max-count=1)" 2>/dev/null)"; then
+if ! LATEST_VERSION="$(git describe --tags --abbrev=0 2>/dev/null)"; then
   echo "Error: Unable to determine latest version."
   exit 1
 fi
