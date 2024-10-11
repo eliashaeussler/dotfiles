@@ -104,6 +104,28 @@ function _install_starship() {
   fi
 }
 
+function _install_restic() {
+  echo "Linking scripts..."
+  mkdir -p "${target_dir}/.config/restic"
+  ln -svfn "${source_dir}/.config/restic/backup" "${target_dir}/.config/restic/backup"
+  ln -svfn "${source_dir}/.config/restic/cleanup" "${target_dir}/.config/restic/cleanup"
+
+  echo
+  echo "Creating empty configuration files..."
+  touch "${target_dir}/.config/restic/excludes.txt"
+  touch "${target_dir}/.config/restic/files.txt"
+  touch "${target_dir}/.config/restic/password.txt"
+  touch "${target_dir}/.config/restic/repository.txt"
+
+  echo
+  echo "Installing required programs..."
+  if ! is_brew_package_installed restic; then
+    brew install restic
+  else
+    echo "'restic' is already installed."
+  fi
+}
+
 function _install_vim() {
   echo "Linking configuration file..."
   ln -svfn "${source_dir}/.vimrc" "${target_dir}/.vimrc"
@@ -184,6 +206,17 @@ echo
 
 if [[ $setup_starship =~ ^[Yy]?$ ]]; then
   _install_starship
+else
+  echo "Skipped."
+fi
+
+# Restic configuration
+echo
+read -p "$(prompt "Set up Restic configuration?")" -n 1 -r setup_restic
+echo
+
+if [[ $setup_restic =~ ^[Yy]?$ ]]; then
+  _install_restic
 else
   echo "Skipped."
 fi

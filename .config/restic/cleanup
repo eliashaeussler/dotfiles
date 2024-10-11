@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -e
+
+readonly config_path="$(cd -- "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
+readonly password_file="${config_path}/password.txt"
+readonly repository_file="${config_path}/repository.txt"
+
+# Make sure repository env var is not set
+export RESTIC_REPOSITORY=
+
+# Print options
+if [ $# -gt 0 ]; then
+	echo "Running restic forget with options: $@"
+fi
+
+# Run backup
+restic forget "$@" \
+	--password-file "$password_file" \
+	--repository-file "$repository_file" \
+	--keep-last 3 \
+	--keep-hourly 10 \
+	--keep-daily 5 \
+	--prune \
+	--verbose
+

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -e
+
+readonly config_path="$(cd -- "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
+readonly files_file="${config_path}/files.txt"
+readonly excludes_file="${config_path}/excludes.txt"
+readonly password_file="${config_path}/password.txt"
+readonly repository_file="${config_path}/repository.txt"
+
+# Make sure repository env var is not set
+export RESTIC_REPOSITORY=
+
+# Limit CPU cores
+export GOMAXPROCS=2
+
+# Print options
+if [ $# -gt 0 ]; then
+	echo "Running restic backup with options: $@"
+fi
+
+# Run backup
+restic backup "$@" \
+	--files-from "$files_file" \
+	--iexclude-file "$excludes_file" \
+	--password-file "$password_file" \
+	--repository-file "$repository_file" \
+	--skip-if-unchanged \
+	--no-scan \
+	--verbose
+

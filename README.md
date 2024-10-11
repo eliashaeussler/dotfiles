@@ -68,6 +68,23 @@ ln -s /path/to/repo/clone/.config/starship.toml
 * [DDEV](https://github.com/drud/ddev)
 * Git
 
+### Restic configuration
+
+In your home directory, run the following:
+
+```bash
+mkdir -p .config/restic
+cd .config/restic
+ln -s /path/to/repo/clone/.config/restic/backup
+ln -s /path/to/repo/clone/.config/restic/cleanup
+
+# Set up Restic backup using config files
+vim excludes.txt
+vim files.txt
+vim password.txt
+vim repository.txt
+```
+
 ### Vim configuration
 
 In your home directory, run the following:
