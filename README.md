@@ -93,6 +93,14 @@ In your home directory, run the following:
 ln -s /path/to/repo/clone/.vimrc
 ```
 
+### Nano configuration
+
+In your home directory, run the following:
+
+```bash
+ln -s /path/to/repo/clone/.nanorc
+```
+
 ### ZSH configuration
 
 In your home directory, run the following:

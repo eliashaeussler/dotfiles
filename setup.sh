@@ -131,6 +131,19 @@ function _install_vim() {
   ln -svfn "${source_dir}/.vimrc" "${target_dir}/.vimrc"
 }
 
+function _install_nano() {
+  echo "Linking configuration file..."
+  ln -svfn "${source_dir}/.nanorc" "${target_dir}/.nanorc"
+
+  echo
+  echo "Installing required programs..."
+  if ! is_brew_package_installed nano; then
+    brew install nano
+  else
+    echo "'nano' is already installed."
+  fi
+}
+
 function _install_zsh() {
   echo "Linking configuration file..."
   ln -svfn "${source_dir}/.zsh_aliases" "${target_dir}/.zsh_aliases"
@@ -228,6 +241,18 @@ echo
 
 if [[ $setup_vim =~ ^[Yy]?$ ]]; then
   _install_vim
+else
+  echo "Skipped."
+fi
+
+
+# Nano configuration
+echo
+read -p "$(prompt "Set up nano configuration?")" -n 1 -r setup_nano
+echo
+
+if [[ $setup_nano =~ ^[Yy]?$ ]]; then
+  _install_nano
 else
   echo "Skipped."
 fi

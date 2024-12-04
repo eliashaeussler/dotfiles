@@ -1,0 +1,3 @@
+set linenumbers
+include "/opt/homebrew/Cellar/nano/*/share/nano/*.nanorc"
+
