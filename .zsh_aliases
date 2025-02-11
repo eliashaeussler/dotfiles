@@ -67,6 +67,7 @@ alias gf='git commit -em "[FEATURE]"'
 alias gr='git commit -em "[RELEASE]"'
 alias gt='git commit -em "[TASK]"'
 alias gcr='git cr'
+alias gcmu='gcm && gu'
 
 # GitHub
 alias ghc='(){ REPO_PATH="$HOME/${2:-Sites}/$1"; mkdir -p "$REPO_PATH" && gh repo clone "$1" "$REPO_PATH" && cd "$REPO_PATH"; }'
