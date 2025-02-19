@@ -20,6 +20,7 @@ disabled = false
 time_format = "%H:%M"
 
 [custom.ddev_version]
+disabled = true
 command = "ddev --version | awk '{print $3}'"
 description = "The current DDEV version"
 detect_folders = [".ddev"]
