@@ -73,7 +73,7 @@ alias gcmu='gcm && gu'
 alias ghc='(){ REPO_PATH="$HOME/${2:-Sites}/$1"; mkdir -p "$REPO_PATH" && gh repo clone "$1" "$REPO_PATH" && cd "$REPO_PATH"; }'
 alias ghv='gh browse'
 alias prm='gh pr merge --auto -d -m'
-alias prm!='prm --admin'
+alias prm!='gh pr merge -d -m --admin'
 alias prmd='gh pr merge --disable-auto'
 alias pro='gh pr view --web'
 
