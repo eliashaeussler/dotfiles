@@ -17,8 +17,8 @@ cd dotfiles
 ./setup.sh
 ```
 
-:bulb: The setup script works on macOS only and assumes you have
-[Homebrew](https://brew.sh/) installed.
+:bulb: The setup script works on macOS and Linux. On macOS, [Homebrew](https://brew.sh/)
+must be installed. For Linux, `apt` is used as package manager. 
 
 ### :technologist: Manual setup
 

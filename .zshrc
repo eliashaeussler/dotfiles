@@ -135,12 +135,14 @@ bindkey "\e\eOC" forward-word
 export LC_ALL=de_DE.UTF-8
 
 # Add SSH key to current session
-ssh-add --apple-use-keychain --apple-load-keychain $HOME/.ssh/id_rsa &>/dev/null
+if [ "$(uname -s)" = "Darwin" ]; then
+  ssh-add --apple-use-keychain --apple-load-keychain $HOME/.ssh/id_rsa &>/dev/null
+fi
 
 # Shell init
-eval "$(brew shellenv)"
-eval "$(starship init zsh)"
-eval "$(mcfly init zsh)"
+which brew >/dev/null 2>&1 && eval "$(brew shellenv)" || true
+which starship >/dev/null 2>&1 && eval "$(starship init zsh)" || true
+which mcfly >/dev/null 2>&1 && eval "$(mcfly init zsh)" || true
 
 # Include additional ZSH configuration
 if [ -f "$HOME/.zshrc_extra" ]; then

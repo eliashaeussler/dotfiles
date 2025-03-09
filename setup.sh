@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2155
 set -e
 
 readonly source_dir="$(cd -- "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
 readonly target_dir="${1-$HOME}"
 readonly omz_dir="${target_dir}/.oh-my-zsh"
+readonly os="$(uname -s)"
 
 echo "Source directory: $source_dir"
 echo "Target directory: $target_dir"
@@ -14,21 +16,76 @@ if [ ! -d "$target_dir" ]; then
     exit 1
 fi
 
+# Check if OS is supported
+if [ "$os" != "Darwin" ] && [ "$os" != "Linux" ]; then
+  >&2 echo "Your operating system is not supported."
+  exit 1
+fi
+
 function prompt() {
   local label="$1"
 
   printf "\e[33m%s\e[39m [\e[32mY\e[39m/n] " "$label"
 }
 
+function is_executable() {
+  local program="$1"
+
+  which "$program" >/dev/null 2>&1
+}
+
 function is_brew_package_installed() {
   local package="$1"
 
   set +e
-  brew list "${package}" >/dev/null 2>&1
+  brew list "$package" >/dev/null 2>&1
   local exitCode="$?"
   set -e
 
   return "$exitCode"
+}
+
+function is_apt_package_installed() {
+  local package="$1"
+
+  set +e
+  apt -qqi list "$package" 2>&1 | grep "$package" >/dev/null
+  local exitCode="$?"
+  set -e
+
+  return "$exitCode"
+}
+
+function install_package() {
+  local brew="$1"
+  local apt="$2"
+
+  case "$os" in
+    Darwin)
+      if [ -z "$brew" ]; then
+        >&2 echo "Package '${apt}' is not available on MacOS using brew."
+        return 0
+      fi
+
+      if ! is_brew_package_installed "$brew"; then
+        brew install "$brew"
+      else
+        echo "'${brew}' is already installed."
+      fi
+      ;;
+    Linux)
+      if [ -z "$apt" ]; then
+        >&2 echo "Package '${brew}' is not available on Linux using apt."
+        return 0
+      fi
+
+      if ! is_apt_package_installed "$apt"; then
+        apt install "$apt"
+      else
+        echo "'${apt}' is already installed."
+      fi
+      ;;
+  esac
 }
 
 function is_omz_plugin_installed() {
@@ -48,11 +105,7 @@ function _install_git() {
 
   echo
   echo "Installing required programs..."
-  if ! is_brew_package_installed git-delta; then
-    brew install git-delta
-  else
-    echo "'git-delta' is already installed."
-  fi
+  install_package git-delta
 }
 
 function _install_ssh() {
@@ -63,10 +116,11 @@ function _install_ssh() {
   local content="${header_comment}\nMatch all\nInclude ${source_config_file}\n"
 
   echo "Configuring includes..."
+  mkdir -p "$(dirname "${target_config_file}")"
   if [ -f "${target_config_file}" ]; then
     content="${content}\n$(cat "${target_config_file}")"
   else
-    mkdir -p "$(dirname "${target_config_file}")"
+    touch "$target_config_file"
   fi
 
   if grep -q "${header_comment}" "${target_config_file}"; then
@@ -92,16 +146,12 @@ function _install_starship() {
 
   echo
   echo "Installing required programs..."
-  if ! is_brew_package_installed starship; then
-    brew install starship
+  if ! is_executable starship; then
+    curl -sS https://starship.rs/install.sh | sh
   else
     echo "'starship' is already installed."
   fi
-  if ! is_brew_package_installed drud/ddev/ddev; then
-    brew install drud/ddev/ddev
-  else
-    echo "'drud/ddev/ddev' is already installed."
-  fi
+  install_package drud/ddev/ddev
 }
 
 function _install_restic() {
@@ -119,11 +169,7 @@ function _install_restic() {
 
   echo
   echo "Installing required programs..."
-  if ! is_brew_package_installed restic; then
-    brew install restic
-  else
-    echo "'restic' is already installed."
-  fi
+  install_package restic restic
 }
 
 function _install_vim() {
@@ -137,11 +183,7 @@ function _install_nano() {
 
   echo
   echo "Installing required programs..."
-  if ! is_brew_package_installed nano; then
-    brew install nano
-  else
-    echo "'nano' is already installed."
-  fi
+  install_package nano nano
 }
 
 function _install_zsh() {
@@ -176,11 +218,7 @@ function _install_zsh() {
   else
     echo "'zsh-syntax-highlighting' is already installed."
   fi
-  if ! is_brew_package_installed mcfly; then
-    brew install mcfly
-  else
-    echo "'mcfly' is already installed."
-  fi
+  install_package mcfly
 }
 
 function _install_scripts() {
