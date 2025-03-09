@@ -106,6 +106,12 @@ function _install_git() {
   echo
   echo "Installing required programs..."
   install_package git-delta
+  if ! is_executable git-gone; then
+    install_package cargo cargo
+    cargo install git-gone
+  else
+    echo "'git-gone' is already installed."
+  fi
 }
 
 function _install_ssh() {
