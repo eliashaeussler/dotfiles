@@ -49,7 +49,7 @@ function is_apt_package_installed() {
   local package="$1"
 
   set +e
-  apt -qqi list "$package" 2>&1 | grep "$package" >/dev/null
+  sudo apt -qqi list "$package" 2>&1 | grep "$package" >/dev/null
   local exitCode="$?"
   set -e
 
@@ -80,7 +80,7 @@ function install_package() {
       fi
 
       if ! is_apt_package_installed "$apt"; then
-        apt install "$apt"
+        sudo apt install "$apt"
       else
         echo "'${apt}' is already installed."
       fi
