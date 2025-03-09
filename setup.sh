@@ -109,6 +109,7 @@ function _install_git() {
   if ! is_executable git-gone; then
     if ! is_executable cargo; then
       curl https://sh.rustup.rs -sSf | sh
+      source "$HOME/.cargo/env"
     fi
     cargo install git-gone
   else
