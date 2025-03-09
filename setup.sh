@@ -107,7 +107,9 @@ function _install_git() {
   echo "Installing required programs..."
   install_package git-delta
   if ! is_executable git-gone; then
-    install_package cargo cargo
+    if ! is_executable cargo; then
+      curl https://sh.rustup.rs -sSf | sh
+    fi
     cargo install git-gone
   else
     echo "'git-gone' is already installed."
