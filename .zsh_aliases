@@ -10,6 +10,7 @@ alias please="sudo"
 alias co="composer"
 alias pcc="composer exec phpstan clear-result-cache"
 alias con='printf "%s" "$(jq -r .name composer.json)" | pbcopy && pbpaste'
+alias ext='printf "%s" $(jq -r ".extra[\"typo3/cms\"][\"extension-key\"]" composer.json) | pbcopy && pbpaste'
 alias path='printf "%s" "$(pwd -P)" | pbcopy && pbpaste'
 alias tmp='printf "%s" "$(php -r "echo sys_get_temp_dir();")" | pbcopy && pbpaste'
 alias y='say -v Markus'
@@ -98,6 +99,7 @@ alias pst='(){ open ${1-$PWD} -a /Applications/PhpStorm.app; }'
 
 # Internet
 alias pack='(){ open "https://packagist.org/packages/$(omz_urlencode ${1:-$(con)})"; }'
+alias ter='(){ open "https://extensions.typo3.org/extension/$(omz_urlencode ${1:-$(ext)})"; }'
 
 # Functions
 function cver() {
