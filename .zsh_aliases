@@ -44,6 +44,7 @@ alias da='ddev exec ssh-add -l >/dev/null 2>&1 || ddev auth ssh -f ~/.ssh/id_rsa
 alias xd='ddev xdebug status'
 alias xde='ddev xdebug on'
 alias xdd='ddev xdebug off'
+alias xdi='ddev xdebug info'
 alias dl='ddev launch'
 alias dlt='ddev launch /typo3/'
 alias dli='ddev launch /typo3/install.php'
