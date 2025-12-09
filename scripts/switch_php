@@ -1,29 +1,27 @@
 #!/usr/bin/env sh
 set -e
 
-PHP_VERSION="$1"
-INVALID_VERSION=1
+RED="\033[0;31m"
+CYAN="\033[1;36m"
+NC="\033[0m"
 
-if [ -z "$PHP_VERSION" ]; then
-    >&2 echo "No PHP version specified. Usage: $0 <php-version>"
+readonly phpVersion="$1"
+readonly packageName="php@${phpVersion}"
+
+if [ -z "$phpVersion" ]; then
+    >&2 echo "${RED}No PHP version specified.${NC}"
+    >&2 echo "Usage:"
+    >&2 echo "  ${CYAN}$0 <php-version>${NC}"
     exit 1
 fi
 
-ALL_VERSIONS="$(brew info --installed --json | jq -r '.[] | select(.name == "php" or (.name | startswith("php@"))) | [.name] + .aliases + .versioned_formulae | .[]')"
-
-for version in $ALL_VERSIONS; do
-  if [ "php@$PHP_VERSION" = "$version" ]; then
-    INVALID_VERSION=0
-    break
-  fi
-done
-
-if [ "$INVALID_VERSION" = 1 ]; then
-  >&2 echo "This PHP version is not supported. Run \"brew install php@$PHP_VERSION\" to install it."
+if ! ls "$(brew --cellar)/${packageName}" >/dev/null 2>&1 && ! brew --prefix --installed "$packageName" >/dev/null 2>&1; then
+  >&2 echo "${RED}This PHP version is not supported."
+  >&2 echo "${NC}Run ${CYAN}brew install ${packageName}${NC} to install it."
   exit 1
 fi
 
-brew unlink --quiet php php@"$PHP_VERSION"
-brew link --quiet --force --overwrite php@"$PHP_VERSION"
+brew unlink --quiet php "$packageName"
+brew link --quiet --force --overwrite "$packageName"
 echo
 php -v
