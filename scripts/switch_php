@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+# shellcheck disable=SC2059
 set -e
 
 RED="\033[0;31m"
@@ -6,22 +7,50 @@ CYAN="\033[1;36m"
 NC="\033[0m"
 
 readonly phpVersion="$1"
-readonly packageName="php@${phpVersion}"
+readonly phpPackage="php@${phpVersion}"
+readonly pcovPackage="pcov@${phpVersion}"
 
 if [ -z "$phpVersion" ]; then
-    >&2 echo "${RED}No PHP version specified.${NC}"
-    >&2 echo "Usage:"
-    >&2 echo "  ${CYAN}$0 <php-version>${NC}"
+    echo "${RED}No PHP version specified.${NC}"
+    echo "Usage:"
+    echo "  ${CYAN}$0 <php-version>${NC}"
     exit 1
 fi
 
-if ! ls "$(brew --cellar)/${packageName}" >/dev/null 2>&1 && ! brew --prefix --installed "$packageName" >/dev/null 2>&1; then
-  >&2 echo "${RED}This PHP version is not supported."
-  >&2 echo "${NC}Run ${CYAN}brew install ${packageName}${NC} to install it."
-  exit 1
-fi
+_activate() {
+  brew unlink --quiet php "$phpPackage"
+  brew link --quiet --force --overwrite "$phpPackage"
+  echo
+  php -v
+}
 
-brew unlink --quiet php "$packageName"
-brew link --quiet --force --overwrite "$packageName"
-echo
-php -v
+_install() {
+  brew tap shivammathur/php
+  brew install "shivammathur/php/${phpPackage}"
+  brew tap shivammathur/extensions
+  brew install "shivammathur/extensions/${pcovPackage}"
+
+  _activate
+  _write_config
+
+  php --ini
+}
+
+_write_config() {
+  configDir="$(php --ini 2>/dev/null | awk -F: '/Scan for additional .ini files/{gsub(/^[ \t]+/, "", $2); print $2}' | tr -d \")"
+
+  echo "memory_limit=2G" > "${configDir}/99-memory-limit.ini"
+}
+
+if ls "$(brew --cellar)/${phpPackage}" >/dev/null 2>&1 || brew --prefix --installed "$phpPackage" >/dev/null 2>&1; then
+  _activate
+else
+  echo "${RED}This PHP version is not installed.${NC}"
+  printf "Install now? [${CYAN}Y${NC}n] "
+  read -r install
+
+  case "$install" in
+    Y*|y*|'') _install;;
+    *) echo "${CYAN}Aborted.${NC}"; exit 1;;
+  esac
+fi
