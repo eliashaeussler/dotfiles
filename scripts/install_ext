@@ -7,7 +7,7 @@ CYAN="\033[1;36m"
 NC="\033[0m"
 
 readonly extensionName="$1"
-readonly phpVersion="$(php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')"
+readonly phpVersion="$(XDEBUG_MODE=off php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')"
 readonly extensionPackage="${extensionName}@${phpVersion}"
 
 if [ -z "$extensionName" ]; then
