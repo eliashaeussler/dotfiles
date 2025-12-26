@@ -23,6 +23,7 @@ _activate() {
   brew link --quiet --force --overwrite "$phpPackage"
   echo
   php -v
+  xd status
 }
 
 _install() {
