@@ -9,6 +9,7 @@ NC="\033[0m"
 readonly phpVersion="$1"
 readonly phpPackage="php@${phpVersion}"
 readonly pcovPackage="pcov@${phpVersion}"
+readonly xdebugPackage="xdebug@${phpVersion}"
 
 if [ -z "$phpVersion" ]; then
     echo "${RED}No PHP version specified.${NC}"
@@ -29,6 +30,7 @@ _install() {
   brew install "shivammathur/php/${phpPackage}"
   brew tap shivammathur/extensions
   brew install "shivammathur/extensions/${pcovPackage}"
+  brew install "shivammathur/extensions/${xdebugPackage}"
 
   _activate
   _write_config
@@ -40,13 +42,16 @@ _write_config() {
   configDir="$(php --ini 2>/dev/null | awk -F: '/Scan for additional .ini files/{gsub(/^[ \t]+/, "", $2); print $2}' | tr -d \")"
 
   echo "memory_limit=2G" > "${configDir}/99-memory-limit.ini"
+
+  # Disable xdebug by default
+  mv "${configDir}/20-xdebug.ini" "${configDir}/20-xdebug.ini.disabled" >/dev/null 2>&1 || true
 }
 
 if ls "$(brew --cellar)/${phpPackage}" >/dev/null 2>&1 || brew --prefix --installed "$phpPackage" >/dev/null 2>&1; then
   _activate
 else
   echo "${RED}This PHP version is not installed.${NC}"
-  printf "Install now? [${CYAN}Y${NC}n] "
+  printf "Install now? [${CYAN}Y${NC}/n] "
   read -r install
 
   case "$install" in
