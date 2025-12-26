@@ -18,6 +18,8 @@ alias yc='say -v Daniel "$(curl https://whatthecommit.com/index.txt -s)"'
 alias yp='y "$(pbpaste)"'
 alias debug="php -dxdebug.mode=debug -dxdebug.client_host=127.0.0.1 -dxdebug.client_port=9003 -dxdebug.start_with_request=yes"
 alias dump='(){ sudo tcpdump -vv -x -X -s 1500 -i lo0 "port $1" }'
+alias xd!="xd on"
+alias xd\?="xd st"
 
 # Docker
 alias doco='docker-compose'
@@ -41,7 +43,7 @@ alias clopc='ddev exec "php -r \"opcache_reset();\""'
 alias dbc='ddev exec /var/www/html/app/vendor/bin/typo3cms database:updateschema -v'
 alias dbca="ddev exec /var/www/html/app/vendor/bin/typo3cms database:updateschema -v '*.drop,*.prefix,*.add,*.change'"
 alias da='ddev exec ssh-add -l >/dev/null 2>&1 || ddev auth ssh -f ~/.ssh/id_rsa'
-alias xd='ddev xdebug status'
+alias xds='ddev xdebug status'
 alias xde='ddev xdebug on'
 alias xdd='ddev xdebug off'
 alias xdi='ddev xdebug info'
