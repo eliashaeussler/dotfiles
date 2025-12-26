@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+# shellcheck disable=SC2155
+set -e
+
+RED="\033[0;31m"
+CYAN="\033[1;36m"
+NC="\033[0m"
+
+readonly extensionName="$1"
+readonly phpVersion="$(php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')"
+readonly extensionPackage="${extensionName}@${phpVersion}"
+
+if [ -z "$extensionName" ]; then
+    echo "${RED}No PHP extension specified.${NC}"
+    echo "Usage:"
+    echo "  ${CYAN}$0 <php-extension>${NC}"
+    exit 1
+fi
+
+_activate() {
+  brew unlink --quiet php "$extensionPackage"
+  brew link --quiet --force --overwrite "$extensionPackage"
+  echo
+  php --ini
+}
+
+_install() {
+  brew tap shivammathur/extensions
+  brew install "shivammathur/extensions/${extensionPackage}"
+  _activate
+  php --ini
+}
+
+if brew --prefix --installed "$extensionPackage" >/dev/null 2>&1; then
+  _activate
+else
+  _install
+fi
