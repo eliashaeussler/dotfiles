@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2155
+set -e
+
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+NC="\033[0m"
+
+readonly toggle="$1"
+
+function _is_enabled() {
+  if XDEBUG_MODE=off php -r 'xdebug_info();' >/dev/null 2>&1; then
+    return 0
+  fi
+
+  return 1
+}
+
+function _is_installed() {
+  local phpVersion="$(XDEBUG_MODE=off php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')"
+  local extensionPackage="xdebug@${phpVersion}"
+
+  if brew --prefix --installed "$extensionPackage" >/dev/null 2>&1; then
+    return 0
+  fi
+
+  return 1
+}
+
+function _enable() {
+  if ! _is_installed; then
+    install_ext xdebug
+  fi
+
+  _write_config "debug,develop"
+
+  echo -e "${GREEN}✔︎${NC} Successfully ${GREEN}enabled${NC} xdebug."
+}
+
+function _disable() {
+  _write_config
+
+  echo -e "${RED}✔︎${NC} Successfully ${RED}disabled${NC} xdebug."
+}
+
+function _status() {
+  if _is_enabled; then
+    echo -e "${GREEN}✔︎${NC} xdebug is ${GREEN}enabled${NC}."
+  else
+    echo -e "${RED}✘${NC} xdebug is ${RED}disabled${NC}."
+  fi
+}
+
+function _write_config() {
+  local mode="$1"
+  local configDir="$(php --ini 2>/dev/null | awk -F: '/Scan for additional .ini files/{gsub(/^[ \t]+/, "", $2); print $2}' | tr -d \")"
+  local defaultConfigFile="${configDir}/20-xdebug.ini"
+  local customConfigFile="${configDir}/99-xdebug.ini"
+
+  if [ -n "$mode" ]; then
+    # Enable
+    mv "${defaultConfigFile}.disabled" "$defaultConfigFile" >/dev/null 2>&1 || true
+    mv "${customConfigFile}.disabled" "$customConfigFile" >/dev/null 2>&1 || true
+    cat > "$customConfigFile" <<INI
+[xdebug]
+xdebug.mode=${mode}
+xdebug.discover_client_host=on
+xdebug.max_nesting_level=1000
+xdebug.start_with_request=yes
+INI
+  else
+    # Disable
+    mv "$defaultConfigFile" "${defaultConfigFile}.disabled" >/dev/null 2>&1 || true
+    mv "$customConfigFile" "${customConfigFile}.disabled" >/dev/null 2>&1 || true
+  fi
+}
+
+case $toggle in
+  off|disable|0) _disable; exit;;
+  on|enable|1) _enable; exit;;
+  st|status|\?) _status; exit;;
+esac
+
+if _is_enabled; then
+  _disable
+else
+  _enable
+fi
