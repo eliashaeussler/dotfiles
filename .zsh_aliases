@@ -74,6 +74,7 @@ alias gcr='git cr'
 alias gcmu='gcm && gu'
 alias gcdu='gcd && gu'
 alias gcu='(){ if [ -n "$1" ]; then git checkout "$1"; fi; git update; }'
+alias t3reset='git reset --hard $(git for-each-ref --format="%(upstream:short)" "$(git symbolic-ref -q HEAD)") && gu'
 
 # GitHub
 alias ghc='(){ REPO_PATH="$HOME/${2:-Sites}/$1"; mkdir -p "$REPO_PATH" && gh repo clone "$1" "$REPO_PATH" && cd "$REPO_PATH"; }'
