@@ -82,6 +82,8 @@ alias ghv='gh browse'
 alias prm='gh pr merge --auto -d -m'
 alias prm!='gh pr merge -d -m --admin'
 alias prmd='gh pr merge --disable-auto'
+alias prd='gh pr ready --undo'
+alias prr='gh pr ready'
 alias pro='gh pr view --web'
 
 # GitLab
@@ -91,6 +93,7 @@ alias mr='(){ glab mr create -a e.haeussler -f -b "${1:-develop}" --remove-sourc
 alias mra='glab mr approve'
 alias mrm='glab mr merge -d --auto-merge --yes'
 alias mram='mra && mrm'
+alias mrd='glab mr update --draft'
 alias mrr='glab mr update --ready'
 alias mro='glab mr view -w'
 alias ci='glab ci run'
