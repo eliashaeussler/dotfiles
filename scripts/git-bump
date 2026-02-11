@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -e
 
-VERSION="$1"
+VERSION="${1:-next}"
 
 # Resolve version from user input
 case $VERSION in
