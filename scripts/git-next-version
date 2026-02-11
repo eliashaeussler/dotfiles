@@ -8,22 +8,37 @@ if ! LATEST_VERSION="$(git describe --tags --abbrev=0 2>/dev/null)"; then
   exit 1
 fi
 
+# Determine commit range (since last tag)
+COMMIT_RANGE="${LATEST_VERSION}..HEAD"
+
+# Auto-detect step for "next"
+if [ "$STEP" = "next" ] || [ "$STEP" = "n" ]; then
+  if git log "$COMMIT_RANGE" --pretty=%s | grep -q '^\[!!!\]'; then
+    STEP="major"
+  elif git log "$COMMIT_RANGE" --pretty=%s | grep -q '^\[FEATURE\]'; then
+    STEP="minor"
+  else
+    STEP="patch"
+  fi
+fi
+
 case $STEP in
-  patch|p|next|n):
+  patch|p)
     echo "$LATEST_VERSION" | awk -F. -v OFS=. '{$NF += 1; print}'
     ;;
   minor|min)
-    echo "$LATEST_VERSION" | awk -F. -v OFS=. '{NF=2; $NF += 1; print $1"."$2".0"}'
+    echo "$LATEST_VERSION" | awk -F. -v OFS=. '{print $1"."$2+1".0"}'
     ;;
   major|maj)
-    echo "$LATEST_VERSION" | awk -F. -v OFS=. '{NF=1; $NF += 1; print $1".0.0"}'
+    echo "$LATEST_VERSION" | awk -F. -v OFS=. '{print $1+1".0.0"}'
     ;;
   *)
     echo "Error: Version step \"${STEP}\" is invalid."
     echo "Allowed steps:"
-    echo "  * next, n (alias for \"patch\"; default)"
+    echo "  * next, n (auto-detected; default)"
     echo "  * patch, p"
     echo "  * minor, min"
     echo "  * major, maj"
     exit 1
 esac
+
