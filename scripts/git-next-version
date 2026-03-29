@@ -22,6 +22,18 @@ if [ "$STEP" = "next" ] || [ "$STEP" = "n" ]; then
   fi
 fi
 
+# Modify step for 0.x versions
+if [ "$LATEST_VERSION" != "${LATEST_VERSION#0.}" ]; then
+  case $STEP in
+    minor|min)
+      STEP=patch
+      ;;
+    major|maj)
+      STEP=minor
+      ;;
+  esac
+fi
+
 case $STEP in
   patch|p)
     echo "$LATEST_VERSION" | awk -F. -v OFS=. '{$NF += 1; print}'
