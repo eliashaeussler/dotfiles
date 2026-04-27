@@ -154,3 +154,6 @@ if [ -n "$ITERM_PROFILE" ]; then
   export DELTA_FEATURES="+dark-mode"
 fi
 
+# Disable gh telemetry
+export GH_TELEMETRY=false
+
