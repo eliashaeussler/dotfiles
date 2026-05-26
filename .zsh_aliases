@@ -106,7 +106,7 @@ alias it=iterm
 alias pst='(){ open ${1-$PWD} -a /Applications/PhpStorm.app; }'
 
 # Internet
-alias pack='(){ open "https://packagist.org/packages/$(omz_urlencode ${1:-$(con)})"; }'
+alias pack='(){ open "https://packagist.org/packages/$(omz_urlencode ${1:-$(con)})#$2"; }'
 alias ter='(){ open "https://extensions.typo3.org/extension/$(omz_urlencode ${1:-$(ext)})"; }'
 
 # Functions
