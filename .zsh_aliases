@@ -34,10 +34,10 @@ alias d="ddev"
 alias de="ddev exec"
 alias ds="ddev ssh"
 alias c="ddev composer"
-alias t3='ddev exec /var/www/html/app/vendor/bin/typo3cms'
+alias t3='ddev exec /var/www/html/app/vendor/bin/typo3'
 alias sf='ddev exec XDEBUG_MODE=debug /var/www/html/app/bin/console'
-alias clc='ddev exec /var/www/html/app/vendor/bin/typo3cms cache:flush'
-alias clcf='ddev exec /var/www/html/app/vendor/bin/typo3cms cache:flushgroups pages'
+alias clc='ddev exec /var/www/html/app/vendor/bin/typo3 cache:flush'
+alias clcf='ddev exec /var/www/html/app/vendor/bin/typo3 cache:flush -g pages'
 alias clcdi='ddev exec rm -rf /var/www/html/var/cache/code/di'
 alias clopc='ddev exec "php -r \"opcache_reset();\""'
 alias dbc='ddev exec /var/www/html/app/vendor/bin/typo3cms database:updateschema -v'
