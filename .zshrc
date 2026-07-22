@@ -143,6 +143,7 @@ fi
 which brew >/dev/null 2>&1 && eval "$(brew shellenv)" || true
 which starship >/dev/null 2>&1 && eval "$(starship init zsh)" || true
 which mcfly >/dev/null 2>&1 && eval "$(mcfly init zsh)" || true
+which tirith >/dev/null 2>&1 && eval "$(tirith init --shell zsh)" || true
 
 # Include additional ZSH configuration
 if [ -f "$HOME/.zshrc_extra" ]; then
@@ -156,4 +157,3 @@ fi
 
 # Disable gh telemetry
 export GH_TELEMETRY=false
-

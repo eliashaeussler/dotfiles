@@ -127,6 +127,7 @@ be automatically included by [`.zshrc`](.zshrc).
 #### Required programs
 
 * [McFly](https://github.com/cantino/mcfly)
+* [tirith](https://github.com/sheeki03/tirith)
 
 ### Scripts
 

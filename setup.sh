@@ -228,6 +228,7 @@ function _install_zsh() {
     echo "'zsh-syntax-highlighting' is already installed."
   fi
   install_package mcfly
+  install_package sheeki03/tap/tirith
 }
 
 function _install_scripts() {
@@ -291,7 +292,6 @@ if [[ $setup_vim =~ ^[Yy]?$ ]]; then
 else
   echo "Skipped."
 fi
-
 
 # Nano configuration
 echo
