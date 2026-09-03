@@ -6,29 +6,64 @@ readonly blueutil="/opt/homebrew/bin/blueutil"
 readonly keyboard="08:95:42:E9:24:5C"
 readonly trackpad="08:65:18:B8:EC:CD"
 
+# Check if device is paired
+function is_paired() {
+  "$blueutil" --paired | grep -iq "${1//:/-}"
+}
+
+# Check if device is connected
+function is_connected() {
+  local connected
+
+  if ! connected="$("$blueutil" --is-connected "$1" 2>/dev/null)"; then
+    return 1
+  elif [ "$connected" -ne 1 ]; then
+    return 1
+  else
+    return 0
+  fi
+}
+
+function connect() {
+  local macAddr="$1"
+
+  # Early return if device is already connected
+  if is_connected "$macAddr"; then
+    return 0
+  fi
+
+  # Unpair device first to enforce reconnection
+  if is_paired "$macAddr"; then
+    "$blueutil" --unpair "$macAddr" 2>/dev/null || true
+    sleep 2
+  fi
+
+  # Reconnect device
+  "$blueutil" --connect "$macAddr" 2>/dev/null || true
+  "$blueutil" --wait-connect "$macAddr" 5 2>/dev/null || true
+
+  if is_connected "$macAddr"; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+# Turn Bluetooth on
 "$blueutil" --power 1
 
-"$blueutil" --unpair "$keyboard" 2>/dev/null || true
-"$blueutil" --connect "$keyboard" 2>/dev/null || true
-"$blueutil" --wait-connect "$keyboard" 5 2>/dev/null || true
-
-"$blueutil" --unpair "$trackpad" 2>/dev/null || true
-"$blueutil" --connect "$trackpad" 2>/dev/null || true
-"$blueutil" --wait-connect "$trackpad" 5 2>/dev/null || true
-
-readonly keyboardStatus=$("$blueutil" --is-connected "$keyboard" 2>/dev/null || echo 0)
-readonly trackpadStatus=$("$blueutil" --is-connected "$trackpad" 2>/dev/null || echo 0)
-
-if [ "$keyboardStatus" -eq 1 ]; then
+# Connect Keyboard
+if connect "$keyboard"; then
   keyboardIcon="✅"
 else
-  keyboardIcon="⚠️"
+  keyboardIcon="❌"
 fi
 
-if [ "$trackpadStatus" -eq 1 ]; then
+# Connect Trackpad
+if connect "$trackpad"; then
   trackpadIcon="✅"
 else
-  trackpadIcon="⚠️"
+  trackpadIcon="❌"
 fi
 
-osascript -e "display notification \"${keyboardIcon} Magic Keyboard ∙ ${trackpadIcon} Magic Trackpad\" with title \"Input Connections\""
+osascript -e "display notification \"${keyboardIcon} Magic Keyboard ∙ ${trackpadIcon} Magic Trackpad\" with title \"Verbindung\""
