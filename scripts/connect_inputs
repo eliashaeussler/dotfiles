@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2155
+set -euo pipefail
+
+readonly blueutil="/opt/homebrew/bin/blueutil"
+readonly keyboard="08:95:42:E9:24:5C"
+readonly trackpad="08:65:18:B8:EC:CD"
+
+"$blueutil" --power 1
+
+"$blueutil" --connect "$keyboard" 2>/dev/null || true
+"$blueutil" --wait-connect "$keyboard" 5 2>/dev/null || true
+
+"$blueutil" --connect "$trackpad" 2>/dev/null || true
+"$blueutil" --wait-connect "$trackpad" 5 2>/dev/null || true
+
+readonly keyboardStatus=$("$blueutil" --is-connected "$keyboard" 2>/dev/null || echo 0)
+readonly trackpadStatus=$("$blueutil" --is-connected "$trackpad" 2>/dev/null || echo 0)
+
+if [ "$keyboardStatus" -eq 1 ]; then
+  keyboardIcon="✅"
+else
+  keyboardIcon="⚠️"
+fi
+
+if [ "$trackpadStatus" -eq 1 ]; then
+  trackpadIcon="✅"
+else
+  trackpadIcon="⚠️"
+fi
+
+osascript -e "display notification \"${keyboardIcon} Magic Keyboard ∙ ${trackpadIcon} Magic Trackpad\" with title \"Input Connections\""

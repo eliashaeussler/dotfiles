@@ -229,6 +229,7 @@ function _install_zsh() {
   fi
   install_package mcfly
   install_package sheeki03/tap/tirith
+  install_package blueutil
 }
 
 function _install_scripts() {
