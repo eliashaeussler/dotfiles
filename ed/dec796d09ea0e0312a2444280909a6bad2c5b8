@@ -1,0 +1,16 @@
+scripts/connect_inputs
+  h_a1c258d8beeba3 1-32
+setup.sh
+  h_a1c258d8beeba3 232
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "eddec796d09ea0e0312a2444280909a6bad2c5b8",
+  "prompts": {},
+  "humans": {
+    "h_a1c258d8beeba3": {
+      "author": "Elias Häußler <elias@haeussler.dev>"
+    }
+  }
+}
