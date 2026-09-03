@@ -8,9 +8,11 @@ readonly trackpad="08:65:18:B8:EC:CD"
 
 "$blueutil" --power 1
 
+"$blueutil" --unpair "$keyboard" 2>/dev/null || true
 "$blueutil" --connect "$keyboard" 2>/dev/null || true
 "$blueutil" --wait-connect "$keyboard" 5 2>/dev/null || true
 
+"$blueutil" --unpair "$trackpad" 2>/dev/null || true
 "$blueutil" --connect "$trackpad" 2>/dev/null || true
 "$blueutil" --wait-connect "$trackpad" 5 2>/dev/null || true
 
