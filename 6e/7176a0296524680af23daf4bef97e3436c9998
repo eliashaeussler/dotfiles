@@ -1,0 +1,15 @@
+scripts/connect_inputs
+  h_a1c258d8beeba3 6-7,11-16,19-20,25,28,42,57,59,63-66,72-74
+  h_a1c258d8beeba3 69-70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "6e7176a0296524680af23daf4bef97e3436c9998",
+  "prompts": {},
+  "humans": {
+    "h_a1c258d8beeba3": {
+      "author": "Elias Häußler <elias@haeussler.dev>"
+    }
+  }
+}
