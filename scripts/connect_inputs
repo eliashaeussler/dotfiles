@@ -70,5 +70,9 @@ fi
 "$blueutil" --power 1
 
 # Connect keyboard and trackpad
-notify "⏳ Connection is being established…"
-notify "$(connect "$keyboard") Magic Keyboard ∙ $(connect "$trackpad") Magic Trackpad"
+if is_connected "$keyboard" && is_connected "$trackpad"; then
+  notify "✅ Connection is already established."
+else
+  notify "⏳ Connection is being established…"
+  notify "$(connect "$keyboard") Magic Keyboard ∙ $(connect "$trackpad") Magic Trackpad"
+fi
