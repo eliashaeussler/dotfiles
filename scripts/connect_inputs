@@ -2,6 +2,7 @@
 # shellcheck disable=SC2155
 set -euo pipefail
 
+readonly brew="/opt/homebrew/bin/brew"
 readonly blueutil="/opt/homebrew/bin/blueutil"
 readonly notificationTitle="Bluetooth connection"
 
@@ -60,10 +61,31 @@ function connect() {
   fi
 }
 
+# Prompt user to install blueutil with dialog
+function show_install_dialog() {
+  osascript <<APPLESCRIPT
+set result to display alert "${notificationTitle}" ¬
+  message "\"blueutil\" must be installed to automate Bluetooth connections. Install now?" ¬
+  as critical ¬
+  buttons {"Close", "Install"} ¬
+  default button "Install" ¬
+  cancel button "Close"
+return button returned of result
+APPLESCRIPT
+}
+
 # Verify that blueutil is installed
 if [ ! -f "$blueutil" ]; then
-  notify "❌ blueutil is not installed. Run \`brew install blueutil\` and try again."
-  exit 1
+  choice="$(show_install_dialog 2>/dev/null || true)"
+
+  if [ "$choice" != "Install" ]; then
+    notify "❌ blueutil must be installed first."
+    exit 1
+  fi
+
+  notify "⏳ blueutil is being installed…"
+  "$brew" install blueutil || (notify "❌ blueutil could not be installed."; exit 1)
+  notify "✅ blueutil successfully installed."
 fi
 
 # Turn Bluetooth on
