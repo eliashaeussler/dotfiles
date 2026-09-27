@@ -1,3 +1,9 @@
+# IDE
 .fleet
 .idea
+
+# Claude
+**/.claude/.cc-writes/
+**/.claude/settings.local.json
+CLAUDE.local.md
 
