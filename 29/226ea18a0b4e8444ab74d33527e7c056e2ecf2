@@ -1,0 +1,14 @@
+.zsh_aliases
+  h_a1c258d8beeba3 69-76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "29226ea18a0b4e8444ab74d33527e7c056e2ecf2",
+  "prompts": {},
+  "humans": {
+    "h_a1c258d8beeba3": {
+      "author": "Elias Häußler <elias@haeussler.dev>"
+    }
+  }
+}
